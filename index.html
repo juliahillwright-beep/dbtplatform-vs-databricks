@@ -259,7 +259,7 @@ footer p{max-width:none;margin:0}
   <div class="wrap">
     <p class="eyebrow">dbt platform with Databricks</p>
     <h1>Databricks runs your data. dbt platform governs how it becomes trusted.</h1>
-    <p class="lede">dbt platform is not an alternative to Databricks. It is the transformation and developer layer that runs on top of it — modular SQL, tests that run before production, model-aware CI/CD, and a governed semantic layer that reaches past Databricks-native tools.</p>
+    <p class="lede">dbt platform is not an alternative to Databricks. It is the transformation and developer layer that runs on top of it — modular SQL, tests that run before production, model-aware CI/CD, and a governed semantic layer that reaches past Databricks-native tools. Building that layer natively — in notebooks or Lakeflow pipelines — is a solid starting point for a Spark-fluent engineering team. It also means that team owns the framework, the CI/CD, and the on-ramp for every analyst who comes after.</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="#close">Talk to your account team</a>
       <a class="btn btn-ghost" href="#layers">See how the layers divide</a>
@@ -297,8 +297,8 @@ footer p{max-width:none;margin:0}
           </tr>
           <tr>
             <td>Orchestration</td>
-            <td class="col-dbx"><span class="owner dbx">Databricks</span>Lakeflow Jobs and Declarative Automation Bundles for orchestrating the broad estate</td>
-            <td class="col-dbt">Model-level orchestration that gates on data tests, not just job success. dbt State compares code and data freshness and reuses or clones unchanged models</td>
+            <td class="col-dbx"><span class="owner dbx">Databricks</span>Lakeflow Jobs for orchestrating the broad estate, with Databricks Asset Bundles (DABs) for deployment</td>
+            <td class="col-dbt">Model-level orchestration that gates on data tests, not just job success. dbt State compares code and data freshness and skips, clones, or defers unchanged models — and runs inside Lakeflow Jobs as a dbt task type</td>
           </tr>
           <tr>
             <td>Governance</td>
@@ -308,7 +308,7 @@ footer p{max-width:none;margin:0}
           <tr>
             <td>Semantics and metrics</td>
             <td class="col-dbx">Unity Catalog metric views: governed, materialized, strong for Databricks-native consumers</td>
-            <td class="col-dbt">Governed semantic layer with first-party integrations across BI, spreadsheet, notebook, and AI tools, plus JDBC, GraphQL, and Python APIs</td>
+            <td class="col-dbt">Governed semantic layer (MetricFlow, Apache 2.0) with first-party integrations across BI, spreadsheet, notebook, and AI tools, plus JDBC, GraphQL, Python, and MCP</td>
           </tr>
         </tbody>
       </table>
@@ -327,7 +327,7 @@ footer p{max-width:none;margin:0}
     <h2>Databricks works. Then the analysts arrive.</h2>
     <p>Most Databricks estates start with a data engineering team of roughly ten people who are fluent in Python, Spark, notebooks, and infrastructure. That team can build almost anything, and for the first year or two it does.</p>
     <p>Then the analytics and business teams show up — fifty, two hundred, five hundred people who are SQL-first and who need governance, tests, and lineage at a scale that tribal knowledge cannot cover. The bottleneck is no longer capability. It is the width of the front door.</p>
-    <p>Notebooks stop scaling here. Not because Databricks is the problem, but because notebooks were built for exploration, not for the production analytics surface the business now depends on. Three things go wrong at the same time.</p>
+    <p>Notebooks stop scaling here. Not because Databricks is the problem, but because notebooks were built for exploration, not for the production analytics surface the business now depends on. The native path still works — but it asks the engineering team to be the framework: author the shared macros, maintain the deployment bundles and GitHub Actions, and gatekeep every change. Three things go wrong at the same time.</p>
 
     <div class="grid g3">
       <div class="card">
@@ -377,11 +377,11 @@ footer p{max-width:none;margin:0}
         <h3>Analysts can contribute</h3>
         <div class="vs">
           <div><h4>Native</h4><p>Pipeline authoring is engineering-led. Every model request queues behind ~10 engineers.</p></div>
-          <div class="b"><h4>dbt platform</h4><p>SQL-fluent analysts ship models inside guardrails set once. The pool becomes 50–500.</p></div>
+          <div class="b"><h4>dbt platform</h4><p>SQL-fluent analysts ship models inside guardrails set once — in Studio, Canvas, or with dbt Wizard. The pool becomes 50–500.</p></div>
         </div>
         <ul class="facts">
           <li>No Spark or notebook expertise required to write, test, and review a model</li>
-          <li>Lakeflow Pipelines Editor and Genie Code lower the pipeline-author floor — but that is not the modeling layer</li>
+          <li>Lakeflow Pipelines Editor (GA May 2026) and Genie Code lower the pipeline-author floor — but that is not the modeling layer</li>
           <li>It changes who sits closest to the business logic — where most quality problems start</li>
         </ul>
       </div>
@@ -412,11 +412,11 @@ footer p{max-width:none;margin:0}
           <div class="b"><h4>dbt platform</h4><p>The unit of work is the model. <code>state:modified+</code> builds only the changed subgraph, in an isolated PR schema.</p></div>
         </div>
         <ul class="facts">
-          <li>CI/CD ships with the platform. The native path is do-it-yourself — Declarative Automation Bundles plus GitHub Actions you build, own, and maintain</li>
+          <li>CI/CD ships with the platform. The native path is do-it-yourself — Databricks Asset Bundles (a Terraform-style CLI) plus GitHub Actions you build, own, and maintain</li>
           <li>dbt State compares code <em>and</em> data freshness in production, skipping or cloning what did not move</li>
-          <li>Cost Insights attributes spend per model, so compute savings are measurable rather than asserted. dbt State is in preview</li>
+          <li>Cost Insights attributes spend per model, so compute savings are measurable rather than asserted. dbt State is GA (September 2026) as a consumption-based add-on; design partners report 15–30% average compute savings*</li>
         </ul>
-        <p class="note"><strong>Nothing is duplicated.</strong> Lakeflow Jobs stays the top-level orchestrator. dbt runs inside it as a task type.</p>
+        <p class="note"><strong>Nothing is duplicated.</strong> Lakeflow Jobs stays the top-level orchestrator. dbt runs inside it as a first-class task type — dbt is one of only two partners with a dedicated Lakeflow task type.</p>
       </div>
     </div>
 
@@ -441,13 +441,13 @@ footer p{max-width:none;margin:0}
         <h3>Governed metrics with broader reach</h3>
         <p style="font-size:.95rem;color:var(--ink-soft)">Unity Catalog metric views went GA in April 2026. The gap is not existence — it is reach and testability.</p>
         <div class="vs">
-          <div><h4>Native</h4><p>Governed in Unity Catalog. Strong for Databricks-native consumers.</p></div>
+          <div><h4>Native</h4><p>Governed in Unity Catalog. Strong for Databricks-native consumers (AI/BI Dashboards, Genie, Hex, Domo; Tableau late 2026). Authored per view — shared dimensions are redefined in each.</p></div>
           <div class="b"><h4>dbt platform</h4><p>Live today in Tableau, Power BI, Sigma, Mode, Omni, Lightdash, Hex, Excel, and Sheets, plus JDBC, ADBC, GraphQL, Python, and MCP.</p></div>
         </div>
         <ul class="facts">
-          <li>Definitions are code, so they can be tested. Unity Catalog has no first-class test concept for metric definitions</li>
+          <li>Definitions are code, so they can be tested, and contracts fail the build when an upstream column changes. Unity Catalog has no first-class test concept for metric definitions, and a metric view breaks silently when its source changes</li>
           <li>Simple, ratio, cumulative, derived, and conversion metrics, including definitions that span sources</li>
-          <li>Genie Code can consume the dbt MCP server through a Unity Catalog connection — dbt feeds Genie rather than competing with it. Today that runs in Genie Code Agent mode, in Model Serving regions, capped at 20 tools</li>
+          <li>Genie can consume the dbt MCP server through a Unity Catalog MCP connection — dbt feeds Genie rather than competing with it. Keep dbt as the system of record for definitions and publish a Databricks-native subset as metric views for Genie consumption</li>
         </ul>
       </div>
     </div>
@@ -498,7 +498,7 @@ footer p{max-width:none;margin:0}
     <div class="panel" id="p2" hidden>
       <div class="tbl-wrap"><table><thead><tr><th>Capability</th><th class="col-dbx">Databricks native</th><th class="col-dbt">dbt platform</th></tr></thead><tbody>
         <tr><td>SQL-first contribution, no Spark required</td><td class="col-dbx"><span class="mark p">◐</span> Engineering-led by default</td><td class="col-dbt"><span class="mark y">✓</span> Analysts and analytics engineers contribute directly</td></tr>
-        <tr><td>Built-in dev, staging, and production targets</td><td class="col-dbx"><span class="mark p">◐</span> Hand-assembled with Declarative Automation Bundles</td><td class="col-dbt"><span class="mark y">✓</span> Built in; project code is environment-agnostic</td></tr>
+        <tr><td>Built-in dev, staging, and production targets</td><td class="col-dbx"><span class="mark p">◐</span> Hand-assembled with Databricks Asset Bundles</td><td class="col-dbt"><span class="mark y">✓</span> Built in; project code is environment-agnostic</td></tr>
         <tr><td>Local development loop</td><td class="col-dbx"><span class="mark p">◐</span> Limited</td><td class="col-dbt"><span class="mark y">✓</span> Full loop via the dbt CLI and VS Code extension</td></tr>
         <tr><td>Code review as the gate on production changes</td><td class="col-dbx"><span class="mark p">◐</span> Possible, but not the default workflow</td><td class="col-dbt"><span class="mark y">✓</span> Pull requests gated on test results</td></tr>
       </tbody></table></div>
@@ -508,15 +508,15 @@ footer p{max-width:none;margin:0}
       <div class="tbl-wrap"><table><thead><tr><th>Capability</th><th class="col-dbx">Databricks native</th><th class="col-dbt">dbt platform</th></tr></thead><tbody>
         <tr><td>Change detection scoped to what moved</td><td class="col-dbx"><span class="mark n">✕</span> None; refresh is per pipeline or named table</td><td class="col-dbt"><span class="mark y">✓</span> <code>state:modified+</code> with defer</td></tr>
         <tr><td>CI that builds only the changed subgraph</td><td class="col-dbx"><span class="mark p">◐</span> Cost scales with total pipeline size</td><td class="col-dbt"><span class="mark y">✓</span> Slim CI in an isolated PR schema</td></tr>
-        <tr><td>Freshness-aware production rebuilds</td><td class="col-dbx"><span class="mark n">✕</span></td><td class="col-dbt"><span class="mark p">◐</span> dbt State — preview</td></tr>
-        <tr><td>Faster parse and validation at scale</td><td class="col-dbx"><span class="mark p">◐</span> Customers report DAG compilation up to 30 min at 100+ tables</td><td class="col-dbt"><span class="mark p">◐</span> Fusion engine — private preview on Databricks</td></tr>
+        <tr><td>Freshness-aware production rebuilds</td><td class="col-dbx"><span class="mark n">✕</span></td><td class="col-dbt"><span class="mark y">✓</span> dbt State — GA, consumption-based add-on</td></tr>
+        <tr><td>Faster parse and validation at scale</td><td class="col-dbx"><span class="mark p">◐</span> Customers report DAG compilation up to 30 min at 100+ tables</td><td class="col-dbt"><span class="mark y">✓</span> dbt v2 engine — GA on Databricks (Sept 2026); ~10× faster parse than v1</td></tr>
         <tr><td>Cost attributed per model</td><td class="col-dbx"><span class="mark n">✕</span> Not attributed per model</td><td class="col-dbt"><span class="mark y">✓</span> Cost Insights, per model</td></tr>
       </tbody></table></div>
     </div>
 
     <div class="panel" id="p4" hidden>
       <div class="tbl-wrap"><table><thead><tr><th>Capability</th><th class="col-dbx">Databricks native</th><th class="col-dbt">dbt platform</th></tr></thead><tbody>
-        <tr><td>Testing breadth</td><td class="col-dbx"><span class="mark p">◐</span> Row-level predicates, evaluated at runtime</td><td class="col-dbt"><span class="mark y">✓</span> Generic, custom, singular, unit, contracts, freshness</td></tr>
+        <tr><td>Testing breadth</td><td class="col-dbx"><span class="mark p">◐</span> Expectations: row-level predicates with warn/drop/fail, evaluated at runtime; reusable rules in Unity Catalog</td><td class="col-dbt"><span class="mark y">✓</span> Generic, custom, singular, unit, contracts, freshness</td></tr>
         <tr><td>Tests run before data moves</td><td class="col-dbx"><span class="mark n">✕</span> Evaluated during the run</td><td class="col-dbt"><span class="mark y">✓</span> Evaluated in CI on the pull request</td></tr>
         <tr><td>Prebuilt test library</td><td class="col-dbx"><span class="mark n">✕</span> No prebuilt library; checks are hand-built</td><td class="col-dbt"><span class="mark y">✓</span> dbt_utils, dbt_expectations, audit_helper</td></tr>
         <tr><td>Docs generated as a by-product of the work</td><td class="col-dbx"><span class="mark p">◐</span> Not a by-product of authoring</td><td class="col-dbt"><span class="mark y">✓</span> Generated, and written back to Unity Catalog</td></tr>
@@ -534,8 +534,8 @@ footer p{max-width:none;margin:0}
 
     <div class="panel" id="p6" hidden>
       <div class="tbl-wrap"><table><thead><tr><th>Capability</th><th class="col-dbx">Databricks native</th><th class="col-dbt">dbt platform</th></tr></thead><tbody>
-        <tr><td>Multi-environment deployment</td><td class="col-dbx"><span class="mark p">◐</span> Declarative Automation Bundles: powerful, but technical</td><td class="col-dbt"><span class="mark y">✓</span> Environment-agnostic, out of the box</td></tr>
-        <tr><td>House framework to build and maintain</td><td class="col-dbx"><span class="mark p">◐</span> Most estates maintain a custom framework</td><td class="col-dbt"><span class="mark y">✓</span> The framework is the product</td></tr>
+        <tr><td>Multi-environment deployment</td><td class="col-dbx"><span class="mark p">◐</span> Databricks Asset Bundles: powerful, but a separate Terraform-style CLI</td><td class="col-dbt"><span class="mark y">✓</span> Environment-agnostic, out of the box</td></tr>
+        <tr><td>House framework to build and maintain</td><td class="col-dbx"><span class="mark p">◐</span> Most estates maintain a custom framework — macros, test helpers, deployment wrappers owned by two or three senior engineers</td><td class="col-dbt"><span class="mark y">✓</span> The framework is the product</td></tr>
         <tr><td>Engine portability of the transformation logic</td><td class="col-dbx"><span class="mark n">✕</span> Spark-authored logic runs only on Databricks</td><td class="col-dbt"><span class="mark y">✓</span> Snowflake, Databricks, BigQuery, Redshift, Fabric</td></tr>
         <tr><td>Onboarding new contributors</td><td class="col-dbx"><span class="mark p">◐</span> Depends on tribal knowledge</td><td class="col-dbt"><span class="mark y">✓</span> Standard patterns, generated docs</td></tr>
       </tbody></table></div>
@@ -555,7 +555,7 @@ footer p{max-width:none;margin:0}
   <div class="wrap">
     <p class="eyebrow">Honest limits</p>
     <h2>Where the native stack wins</h2>
-    <p>Four cases where we would not put dbt in the path.</p>
+    <p>Four cases where we would not put dbt in the path — and a profile of the team for whom the native stack alone is enough.</p>
 
     <div class="grid g2">
       <div class="card">
@@ -579,6 +579,16 @@ footer p{max-width:none;margin:0}
     <div class="quote">
       <p>Federation and Iceberg expose output data to other engines. They do not make the logic portable. Portable data is not portable logic.</p>
     </div>
+
+    <h3 style="margin-top:2.5rem">The native stack alone is a good fit when:</h3>
+    <ul class="facts" style="margin-top:.75rem">
+      <li>Your transformation team is Python- and Spark-first, roughly ten people or fewer, with no SQL-first analysts waiting to contribute</li>
+      <li>You can dedicate senior engineering time to owning the house framework — shared macros, test helpers, Asset Bundles, and the GitHub Actions pipeline — and to onboarding every new contributor by hand</li>
+      <li>Workloads are streaming, CDC, or ML-feature pipelines rather than a silver-to-gold analytics layer that BI and agents depend on</li>
+      <li>Databricks is, and will stay, the only engine — no second warehouse, no M&amp;A, no multi-platform BI</li>
+      <li>Every metric consumer lives inside Databricks (AI/BI Dashboards, Genie), so Unity Catalog metric views reach everyone who needs them</li>
+    </ul>
+    <p class="note" style="margin-top:1rem">When those conditions stop holding — the analysts arrive, a second platform appears, or the two engineers who own the framework move on — that is the inflection point above.</p>
   </div>
 </section>
 
@@ -620,7 +630,7 @@ footer p{max-width:none;margin:0}
     <p class="eyebrow">Next step</p>
     <h2>Databricks alone, or Databricks with a better transformation workflow</h2>
     <p>Databricks is the right place to run the platform. dbt platform sits on top for the transformation layer — modular SQL, tests before production, model-aware CI/CD, real lineage, and governed metrics that reach past Databricks-native tools.</p>
-    <p>The question was never dbt or Databricks. It is Databricks alone, or Databricks with a faster, cheaper, more reliable transformation workflow on top.</p>
+    <p>The question was never dbt or Databricks. It is Databricks alone — with your engineers building and maintaining the transformation framework — or Databricks with a faster, cheaper, more reliable transformation workflow on top that your whole organization can contribute to.</p>
     <!-- TODO: replace href with the real contact/eval-request URL before publishing -->
     <div class="btn-row"><a class="btn btn-primary" href="#layers">Review the division of labor</a></div>
   </div>
@@ -628,7 +638,7 @@ footer p{max-width:none;margin:0}
 
 <footer>
   <div class="wrap">
-    <p>Internal draft for review. Product availability noted inline: Fusion is in private preview on Databricks; dbt State is in preview; Unity Catalog metric views are GA as of April 2026. Not for external distribution before PMM sign-off.</p>
+    <p>Product availability as of October 2026: dbt v2 engine (formerly Fusion) is GA on Databricks; dbt State is GA as a consumption-based add-on; the dbt platform task type in Lakeflow Jobs is in public beta; Unity Catalog metric views are GA as of April 2026; Lakeflow Pipelines Editor is GA as of May 2026. *15–30% compute savings on average based on dbt State design partner results; individual savings vary by project configuration and workload. Databricks-native capabilities reflect Databricks documentation as of September 2026.</p>
   </div>
 </footer>
 
