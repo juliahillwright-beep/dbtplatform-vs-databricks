@@ -239,6 +239,29 @@ footer{
   color:var(--ink-faint);
 }
 footer p{max-width:none;margin:0}
+
+/* Stack comparison tables into cards on phones */
+@media (max-width: 640px){
+  .tbl-wrap{overflow:visible}
+  .tbl-wrap table,.tbl-wrap tbody,.tbl-wrap tr,.tbl-wrap td{display:block;width:100%}
+  .tbl-wrap thead{display:none}
+  .tbl-wrap table{border:none;box-shadow:none;background:transparent;min-width:0}
+  .tbl-wrap{border:none;background:transparent}
+  .tbl-wrap tbody tr{background:#fff;border:1px solid var(--line, #e6e6e6);border-radius:10px;margin-bottom:12px;overflow:hidden}
+  .tbl-wrap td{padding:10px 14px;border:none !important}
+  .tbl-wrap td:first-child{font-weight:700;background:var(--bg-alt, #f6f6f6)}
+  .tbl-wrap td.col-dbx::before,.tbl-wrap td.col-dbt::before{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+  .tbl-wrap td.col-dbx::before{content:'Databricks native';color:var(--ink-faint, #777)}
+  .tbl-wrap td.col-dbt::before{content:'dbt platform';color:var(--accent, #ff6245)}
+  .tbl-wrap td .owner{display:inline-block;margin-bottom:4px}
+  .tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .tabs .tab{white-space:nowrap}
+  nav .wrap{gap:.5rem}
+  .brand{white-space:nowrap;font-size:1rem}
+  .brand span:last-child{display:none}
+  nav a{white-space:nowrap;font-size:.85rem}
+  .tbl-wrap td .owner{display:block;width:max-content;margin-bottom:6px}
+}
 </style>
 </head>
 <body>
